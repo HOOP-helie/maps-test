@@ -1,16 +1,17 @@
 import { useEffect } from "react"
+import { useGoogleMap } from '@react-google-maps/api'
 // import { createMarker } from "@react-google-maps/api"
 
-function PlaceDetails({ placeID, mapRef }) {
+function PlaceDetails({ placeID }) {
   // const myLatLng = { lat: -25.363, lng: 131.044 };
   // const map = new window.google.maps.Map(document.getElementById("map"), {
   //   zoom: 4,
   //   center: myLatLng,
   // });
 
+  const map = useGoogleMap()
   useEffect(() => {
-    const map = mapRef?.current;
-    console.log(map)
+
     var request = {
       placeId: placeID,
       // fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
@@ -31,7 +32,7 @@ function PlaceDetails({ placeID, mapRef }) {
       }
     }
 
-  }, [placeID, mapRef]);
+  }, [placeID]);
 
   return (
     <div>PlaceDetails</div>

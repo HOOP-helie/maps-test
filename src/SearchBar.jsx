@@ -13,7 +13,7 @@ import PlaceDetails
 
 const autocompleteService = { current: null };
 
-export default function SearchBar(mapRef) {
+export default function SearchBar() {
     const [value, setValue] = useState(null);
     const [placeID, setPlaceID] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -128,7 +128,7 @@ export default function SearchBar(mapRef) {
                     );
                 }}
             />
-            {placeID && <PlaceDetails mapRef={mapRef} placeID={placeID} />}
+            {placeID && <PlaceDetails  placeID={placeID} />}
         </>
 
     );

@@ -1,9 +1,12 @@
 import { GoogleMap } from "@react-google-maps/api"
+import SearchBar from './SearchBar'
 
-function Map({ mapRef }) {
+function Map() {
 
     return (
-        <GoogleMap ref={mapRef} zoom={10} center={{ lat: 44, lng: -88 }} mapContainerClassName="map-container">
+        <GoogleMap zoom={10} center={{ lat: 44, lng: -88 }} mapContainerClassName="map-container">
+            <SearchBar />
+
         </GoogleMap>
     )
 }
