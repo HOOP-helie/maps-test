@@ -1,33 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Map from './Map'
+// import Sidebar from './Sidebar'
+import SearchBar from './SearchBar'
 import './App.css'
+// import { useLoadScript } from "@react-google-maps/api"
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const { isLoaded } = useLoadScript({ googleMapsApiKey: import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_API_KEY, libraries: ['places'] })
+  let content;
 
+  // if (!isLoaded) content = <p>Loading...</p>;
+  // else {
+  content = <>
+    <Map />
+    <SearchBar />
+    {/* <Sidebar /> */}
+
+  </>
+  // }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='app'>
+        {content}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
