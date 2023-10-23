@@ -1,9 +1,9 @@
-import { GoogleMap, Marker } from "@react-google-maps/api"
+import { GoogleMap } from "@react-google-maps/api"
 
-function Map() {
+function Map({ mapRef }) {
+
     return (
-        <GoogleMap zoom={10} center={{ lat: 44, lng: -88 }} mapContainerClassName="map-container">
-            <Marker position={{ lat: 44, lng: -88 }} />
+        <GoogleMap ref={mapRef} zoom={10} center={{ lat: 44, lng: -88 }} mapContainerClassName="map-container">
         </GoogleMap>
     )
 }

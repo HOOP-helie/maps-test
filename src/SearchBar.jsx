@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -10,57 +10,17 @@ import { debounce } from '@mui/material/utils';
 import PlaceDetails
     from './PlaceDetails';
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_API_KEY
-
-// async function getPlaceById(id) {
-//     let url = `https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Crating%2Cformatted_phone_number&place_id=${id}&key=${GOOGLE_MAPS_API_KEY}`;
-//     try {
-//         const res = await fetch(url, {
-//             method: 'GET',
-//         })
-
-//         if (!res.ok) {
-//             throw new Error('An error occured');
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
-
-function loadScript(src, position, id) {
-    if (!position) {
-        return;
-    }
-
-    const script = document.createElement('script');
-    script.setAttribute('async', '');
-    script.setAttribute('id', id);
-    script.src = src;
-    position.appendChild(script);
-}
 
 const autocompleteService = { current: null };
 
-export default function SearchBar() {
-    const [value, setValue] = React.useState(null);
-    const [placeID, setPlaceID] = React.useState(null);
-    const [inputValue, setInputValue] = React.useState('');
-    const [options, setOptions] = React.useState([]);
-    const loaded = React.useRef(false);
+export default function SearchBar(mapRef) {
+    const [value, setValue] = useState(null);
+    const [placeID, setPlaceID] = useState(null);
+    const [inputValue, setInputValue] = useState('');
+    const [options, setOptions] = useState([]);
 
-    if (typeof window !== 'undefined' && !loaded.current) {
-        if (!document.querySelector('#google-maps')) {
-            loadScript(
-                `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
-                document.querySelector('head'),
-                'google-maps',
-            );
-        }
 
-        loaded.current = true;
-    }
-
-    const fetch = React.useMemo(
+    const fetch = useMemo(
         () =>
             debounce((request, callback) => {
                 autocompleteService.current.getPlacePredictions(request, callback);
@@ -68,7 +28,7 @@ export default function SearchBar() {
         [],
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
         let active = true;
 
         if (!autocompleteService.current && window.google) {
@@ -92,6 +52,8 @@ export default function SearchBar() {
                 if (value) {
                     newOptions = [value];
                     setPlaceID(value.place_id)
+                    setValue(null)
+                    console.log(value)
                 }
 
                 if (results) {
@@ -166,7 +128,7 @@ export default function SearchBar() {
                     );
                 }}
             />
-            {placeID && <PlaceDetails placeID={placeID} />}
+            {placeID && <PlaceDetails mapRef={mapRef} placeID={placeID} />}
         </>
 
     );
