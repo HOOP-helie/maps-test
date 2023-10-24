@@ -1,6 +1,4 @@
 import Map from './Map'
-// import Sidebar from './Sidebar'
-// import SearchBar from './SearchBar'
 import './App.css'
 import { useLoadScript } from "@react-google-maps/api"
 
@@ -9,8 +7,6 @@ const googleLibraries = ["places"];
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_API_KEY
 
 function App() {
-
-
   const { isLoaded } = useLoadScript({ googleMapsApiKey: GOOGLE_MAPS_API_KEY, libraries: googleLibraries })
   let content;
 
@@ -18,9 +14,6 @@ function App() {
   else {
     content = <>
       <Map />
-      {/* <SearchBar /> */}
-      {/* <Sidebar /> */}
-
     </>
   }
   return (

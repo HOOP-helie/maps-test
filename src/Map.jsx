@@ -1,12 +1,11 @@
 import { GoogleMap } from "@react-google-maps/api"
-import SearchBar from './SearchBar'
+import SideBar from './SideBar'
 
 function Map() {
 
     return (
         <GoogleMap zoom={10} center={{ lat: 44, lng: -88 }} mapContainerClassName="map-container">
-            <SearchBar />
-
+            <SideBar />
         </GoogleMap>
     )
 }

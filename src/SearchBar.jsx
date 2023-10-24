@@ -7,15 +7,13 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
-import PlaceDetails
-    from './PlaceDetails';
+
 
 
 const autocompleteService = { current: null };
 
-export default function SearchBar() {
+export default function SearchBar({ setSelectedPlace }) {
     const [value, setValue] = useState(null);
-    const [placeID, setPlaceID] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState([]);
 
@@ -41,7 +39,7 @@ export default function SearchBar() {
 
         if (inputValue === '') {
             setOptions(value ? [value] : []);
-            setPlaceID(null)
+            // setSelectedPlace(null)
             return undefined;
         }
 
@@ -51,9 +49,8 @@ export default function SearchBar() {
 
                 if (value) {
                     newOptions = [value];
-                    setPlaceID(value.place_id)
+                    setSelectedPlace(value.place_id)
                     setValue(null)
-                    console.log(value)
                 }
 
                 if (results) {
@@ -128,7 +125,6 @@ export default function SearchBar() {
                     );
                 }}
             />
-            {placeID && <PlaceDetails  placeID={placeID} />}
         </>
 
     );
